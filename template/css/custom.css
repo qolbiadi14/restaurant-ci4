@@ -1,0 +1,130 @@
+/** ADD YOUR AWESOME CODES HERE **/
+.top-navbar .navbar {
+  padding: 0;
+}
+
+.top-navbar .navbar-light .navbar-nav .nav-link {
+  margin: 0 2px;
+}
+
+.slides-navigation a {
+  background: transparent;
+}
+
+.slides-navigation a:hover {
+  background: #d65106;
+}
+
+.menu-box {
+  padding: 70px 0 0 0;
+  background-color: beige;
+}
+
+.inner-menu-box .nav-pills .nav-link.active {
+  margin: 2px 0;
+}
+.inner-menu-box .nav-pills .nav-link {
+  margin: 2px 0;
+}
+
+.gallery-single {
+  width: 255px;
+  height: 170px;
+}
+
+.why-text a {
+  font-size: 16px;
+  font-weight: 500;
+  color: black;
+}
+
+.why-text a:hover {
+  font-size: 17px;
+  font-weight: 600;
+  color: rgb(255, 225, 90);
+}
+
+.why-text h4 {
+  font-size: 18px;
+}
+
+.why-text h5 {
+  font-size: 22px;
+}
+
+.contact-imfo-box {
+  border-radius: 0;
+}
+
+#back-to-top {
+  background: orange;
+}
+
+.page-breadcrumb {
+  padding: 150px 0 150px;
+}
+
+/*------------------------------------------------------------------
+    Login, register, forgot password
+-------------------------------------------------------------------*/
+
+.all-page-title .container {
+  height: 100%;
+  align-content: center;
+}
+
+.card {
+  height: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding: 0px;
+  width: 400px;
+  background-color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.card-header h3 {
+  color: white;
+  font-size: 24px;
+}
+
+.social_icon {
+  position: absolute;
+  right: 20px;
+  top: -45px;
+}
+
+.input-group-prepend span {
+  width: 50px;
+  background-color: #ffc312;
+  color: black;
+  border: 0 !important;
+}
+
+input:focus {
+  outline: 0 0 0 0 !important;
+  box-shadow: 0 0 0 0 !important;
+}
+
+.login_btn {
+  color: black;
+  background-color: #ffc312;
+}
+
+.login_btn:hover {
+  color: black;
+  background-color: white;
+}
+
+.links {
+  color: white;
+  font-size: 18px;
+}
+
+.links a {
+  margin-left: 4px;
+  color: rgb(25, 25, 25);
+}
+
+.links a:hover {
+  color: #ffc312;
+}
