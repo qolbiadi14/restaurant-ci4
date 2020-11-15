@@ -16,7 +16,7 @@
 					<div class="container">
 						<div class="row">
 							<div class="col-md-12">
-								<h1 class="m-b-20"><strong>Selamat datang di <br> Jumbo Restaurant</strong></h1>
+								<h1 class="m-b-20"><strong>Selamat datang di <br> <?= $identitas['namatoko'] ?></strong></h1>
 								<p class="m-b-40">Kami selalu memberikan pengalaman terbaik <br> dalam membuat masakan kesukaan anda.</p>
 							</div>
 						</div>
@@ -30,6 +30,25 @@
 		</div>
 	</div>
 	<!-- End slides -->
+
+	<!-- Start About -->
+	<div class="about-section-box">
+		<div class="container">
+			<div class="row">
+				<div class="col justify-content-end col-lg-7 col-md-7 col-sm-12 text-center">
+					<div class="inner-column">
+						<h1>Hai! Selamat Berbelanja di <span><?= $identitas['namatoko'] ?></span></h1>
+						<h4 style="color: black;">Kami mengutamakan kualitas produk </h4>
+						<p style="color: black;"><?= $identitas['deskripsitoko'] ?></p>
+					</div>
+				</div>
+				<div class="col-lg-6 col-md-6 col-sm-12">
+					<img src="images/about-img.jpg" alt="" class="img-fluid">
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End About -->
 
 	<!-- Start QT -->
 	<div class="qt-box qt-background">
