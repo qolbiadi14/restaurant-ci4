@@ -33,16 +33,6 @@ class Homepage extends BaseController
         echo view('home/homepage', $data);
     }
 
-    public function option()
-    {
-        $model = new M_kategori();
-        $kategori = $model->findAll();
-        $data = [
-            'kategori' => $kategori,
-        ];
-        return view('template/option', $data);
-    }
-
     //--------------------------------------------------------------------
 
 }

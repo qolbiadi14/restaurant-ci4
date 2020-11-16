@@ -1,5 +1,5 @@
 <?= $this->include('template/footer') ?>
-<?= $this->endSection() ?><?= $this->extend('template/header') ?>
+<?= $this->extend('template/header') ?>
 
 <?= $this->section('header') ?>
 
