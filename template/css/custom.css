@@ -1,4 +1,23 @@
 /** ADD YOUR AWESOME CODES HERE **/
+.us-page-link {
+  position: relative;
+  display: block;
+  padding: 0.5rem 0.75rem;
+  margin-left: -1px;
+  line-height: 1.25;
+  color: #ffffff;
+  background-color: #d65106;
+  border: 1px solid #dee2e6;
+}
+
+.us-page-link:hover {
+  z-index: 2;
+  color: #dee2e6;
+  text-decoration: none;
+  background-color: #ffc312;
+  border-color: #dee2e6;
+}
+
 .top-navbar .navbar {
   padding: 0;
 }

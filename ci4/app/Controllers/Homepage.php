@@ -10,12 +10,13 @@ class Homepage extends BaseController
 {
     public function index()
     {
+        $pager = \Config\Services::pager();
         $db = \Config\Database::connect();
         $cart = \Config\Services::cart();
 
-        $model = new M_kategori;
-        $model2 = new M_menu;
-        $model3 = new M_slider;
+        $model = new M_kategori();
+        $model2 = new M_menu();
+        $model3 = new M_slider();
 
         $query = $db->query("SELECT * FROM tblidentitas");
         $row = $query->getRowArray();
@@ -27,6 +28,8 @@ class Homepage extends BaseController
             'cart' => $cart,
             'kategori' => $kategori,
             'menu' => $menu,
+            'allmenu' => $model2->paginate(6, 'page'),
+            'pager' => $model2->pager,
             'identitas' => $row,
             'slider' => $slider
         ];

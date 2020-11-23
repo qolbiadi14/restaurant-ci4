@@ -1,4 +1,7 @@
-<?php namespace App\Controllers\Admin;
+<?php
+
+namespace App\Controllers\Admin;
+
 use App\Controllers\BaseController;
 
 use App\Models\M_kategori;
@@ -6,28 +9,32 @@ use App\Models\M_menu;
 
 class Menu extends BaseController
 {
+	protected $db;
+	protected $query;
+	protected $row;
+
+	public function __construct()
+	{
+		$this->db = \Config\Database::connect();
+		$this->query = $this->db->query("SELECT * FROM tblidentitas");
+		$this->row = $this->query->getRowArray();
+	}
+
 	public function index()
 	{
 		$pager = \Config\Services::pager();
-        $model = new M_menu;
-        
-        $db = \Config\Database::connect();
-        $query = $db->query("SELECT * FROM tblidentitas");
-        $row = $query->getRowArray();
-		$data = [
-            'menu' => $model->paginate(3,'page'),
-			'pager' => $model->pager,
-			'identity' => $row
-        ];
-		return view('admin/menu/menu',$data);
-    }
+		$model = new M_menu;
 
-    public function read()
+		$data = [
+			'menu' => $model->paginate(3, 'page'),
+			'pager' => $model->pager,
+			'identity' => $this->row
+		];
+		return view('admin/menu/menu', $data);
+	}
+
+	public function read()
 	{
-	    $db = \Config\Database::connect();
-        $query = $db->query("SELECT * FROM tblidentitas");
-        $row = $query->getRowArray();
-        
 		$pager = \Config\Services::pager();
 		if (isset($_GET['idkategori'])) {
 			$id = $_GET['idkategori'];
@@ -50,7 +57,7 @@ class Menu extends BaseController
 				'pager' => $pager,
 				'tampil' => $tampil,
 				'total' => $count,
-				'identity' => $row
+				'identity' => $this->row
 
 			];
 
@@ -62,18 +69,15 @@ class Menu extends BaseController
 	{
 		$model = new M_kategori();
 		$kategori = $model->findAll();
-		
-		$db = \Config\Database::connect();
-        $query = $db->query("SELECT * FROM tblidentitas");
-        $row = $query->getRowArray();
+
 		$data = [
 			'kategori' => $kategori,
-			'identity' => $row
+			'identity' => $this->row
 		];
 		echo view("/admin/menu/insert", $data);
 	}
 
-    public function insert()
+	public function insert()
 	{
 		$request = \Config\Services::request();
 		$file = $request->getfile('gambar');
@@ -87,7 +91,7 @@ class Menu extends BaseController
 		];
 
 		$model = new M_menu();
-		
+
 		if ($model->insert($data) === false) {
 			$error = $model->errors();
 			session()->setFlashdata('info', $error);
@@ -96,14 +100,14 @@ class Menu extends BaseController
 			$file->move('./upload');
 			return redirect()->to(base_url("/admin/menu"));
 		}
-    }
+	}
 
-    public function option()
+	public function option()
 	{
 		$model = new M_kategori();
 		$kategori = $model->findAll();
-		$data=[
-			'kategori'=>$kategori
+		$data = [
+			'kategori' => $kategori
 		];
 		return view('admin/template/option', $data);
 	}
@@ -115,15 +119,11 @@ class Menu extends BaseController
 
 		$kategorimodel = new M_kategori();
 		$kategori = $kategorimodel->findAll();
-		
-		$db = \Config\Database::connect();
-        $query = $db->query("SELECT * FROM tblidentitas");
-        $row = $query->getRowArray();
 
 		$data = [
 			'menu' => $menu,
 			'kategori' => $kategori,
-			'identity' => $row
+			'identity' => $this->row
 
 		];
 
@@ -133,16 +133,16 @@ class Menu extends BaseController
 	public function update()
 	{
 		$db = \Config\Database::connect();
-		
+
 		$file = $this->request->getfile('gambar');
 		$name = $file->getName();
-		
+
 		if (empty($name)) {
 			$name = $this->request->getPost('gambar');
 		} else {
 			$file->move('./upload');
 		}
-		
+
 		$idmenu = $this->request->getPost('idmenu');
 		$idkategori = $this->request->getPost('idkategori');
 		$menu = $this->request->getPost('menu');
@@ -153,11 +153,11 @@ class Menu extends BaseController
 		$db->query($sql);
 		return redirect()->to(base_url("/admin/menu"));
 	}
-    
-    public function delete($id = null)
+
+	public function delete($id = null)
 	{
 		$model = new M_menu();
-		$model -> delete($id);
+		$model->delete($id);
 		return redirect()->to(base_url("/admin/menu"));
 	}
 

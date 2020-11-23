@@ -76,13 +76,6 @@ class Cart extends BaseController
 		$cart->remove($rowid);
 		return redirect()->to(base_url('/cart'));
 	}
-
-	// public function removeAll()
-	// {
-	// 	$cart = \Config\Services::cart();
-	// 	$cart->destroy();
-	// 	return redirect()->to('/homepage');
-	// }
 	//--------------------------------------------------------------------
 
 }

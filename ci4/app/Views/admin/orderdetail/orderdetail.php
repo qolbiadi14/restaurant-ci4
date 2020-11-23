@@ -50,19 +50,19 @@
           </div>
           <!-- /.card-header -->
           <!-- form start -->
-            <div class="card-body">
-              <form action="<?= base_url('/admin/orderdetail/cari') ?>" method="post">
-                <div class="form-group">
-                  <label >Tanggal Awal</label>
-                  <input type="date" name="awal" require class="form-control">
-                </div>
-                <div class="form-group">
-                  <label >Tanggal Akhir</label>
-                  <input type="date" name="sampai" require class="form-control">
-                </div>
-                <button type="submit" name="cari" class="btn btn-info">Cari</button>
-              </form>
-            </div>
+          <div class="card-body">
+            <form action="<?= base_url('/admin/orderdetail/cari') ?>" method="post">
+              <div class="form-group">
+                <label>Tanggal Awal</label>
+                <input type="date" name="awal" require class="form-control">
+              </div>
+              <div class="form-group">
+                <label>Tanggal Akhir</label>
+                <input type="date" name="sampai" require class="form-control">
+              </div>
+              <button type="submit" name="cari" class="btn btn-info">Cari</button>
+            </form>
+          </div>
         </div>
         <div class="card">
           <div class="card-header">
@@ -95,13 +95,13 @@
                 <?php endforeach ?>
               </tbody>
             </table>
-            <div class="row justify-content-center">
-              <?= $pager->links('page', 'bootstrap') ?>
-            </div>
           </div>
           <!-- /.card-body -->
         </div>
         <!-- /.card -->
+        <div class="row justify-content-center">
+          <?= $pager->links('page', 'bootstrap') ?>
+        </div>
         <div>
         </div>
         <!-- /.container-fluid -->

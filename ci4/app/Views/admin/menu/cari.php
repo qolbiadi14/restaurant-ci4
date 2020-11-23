@@ -88,13 +88,13 @@
               <?php endforeach ?>
             </tbody>
           </table>
-          <div class="row justify-content-center">
-            <?= $pager->makeLinks(1, $tampil, $total, 'bootstrap') ?>
-          </div>
         </div>
         <!-- /.card-body -->
       </div>
       <!-- /.card -->
+    </div>
+    <div class="row justify-content-center">
+      <?= $pager->makeLinks(1, $tampil, $total, 'bootstrap') ?>
     </div>
     <!-- /.container-fluid -->
   </section>

@@ -31,6 +31,16 @@
   <!-- /.content-header -->
 
   <!-- Main content -->
+  <?php
+  if (isset($_GET['page_page'])) {
+    $page = $_GET['page_page'];
+    $jumlah = 3;
+    $no = ($jumlah * $page) - $jumlah + 1;
+  } else {
+    $no = 1;
+  }
+
+  ?>
   <section class="content">
     <div class="container-fluid">
       <a href=" <?= base_url('/admin/kategori/create') ?>"><button class="btn btn-md btn-primary mt-3 mb-3 "><i class="fas fa-plus fa-sm"></i> Tambah Kategori</button></a>
@@ -51,7 +61,7 @@
               </tr>
             </thead>
             <tbody>
-              <?php $no = 1;
+              <?php
               foreach ($kategori as $key => $value) : ?>
                 <tr>
                   <td><?= $no++ ?></td>
@@ -71,6 +81,9 @@
         <!-- /.card-body -->
       </div>
       <!-- /.card -->
+    </div>
+    <div class="row justify-content-center">
+      <?= $pager->links('page', 'bootstrap') ?>
     </div>
     <!-- /.container-fluid -->
   </section>

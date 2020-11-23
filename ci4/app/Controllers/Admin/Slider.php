@@ -8,29 +8,33 @@ use App\Models\M_slider;
 
 class Slider extends BaseController
 {
+    protected $db;
+    protected $query;
+    protected $row;
+
+    public function __construct()
+    {
+        $this->db = \Config\Database::connect();
+        $this->query = $this->db->query("SELECT * FROM tblidentitas");
+        $this->row = $this->query->getRowArray();
+    }
+
     public function index()
     {
         $model = new M_slider();
         $slider = $model->findAll();
 
-        $db = \Config\Database::connect();
-        $query = $db->query("SELECT * FROM tblidentitas");
-        $row = $query->getRowArray();
         $data = [
             'slider' => $slider,
-            'identity' => $row
+            'identity' => $this->row
         ];
         return view('admin/slider/slider', $data);
     }
 
     public function create()
     {
-        $db = \Config\Database::connect();
-        $query = $db->query("SELECT * FROM tblidentitas");
-        $row = $query->getRowArray();
-
         $data = [
-            'identity' => $row
+            'identity' => $this->row
         ];
         return view("/admin/slider/insert", $data);
     }
@@ -56,12 +60,9 @@ class Slider extends BaseController
         $model = new M_slider();
         $slider = $model->find($id);
 
-        $db = \Config\Database::connect();
-        $query = $db->query("SELECT * FROM tblidentitas");
-        $row = $query->getRowArray();
         $data = [
             'slider' => $slider,
-            'identity' => $row
+            'identity' => $this->row
         ];
 
         return view("admin/slider/update", $data);

@@ -1,24 +1,34 @@
-<?php namespace App\Controllers\Admin;
+<?php
+
+namespace App\Controllers\Admin;
+
 use App\Controllers\BaseController;
 
 use App\Models\M_order;
 
 class Order extends BaseController
 {
-	public function index()
-	{
+    protected $db;
+    protected $query;
+    protected $row;
+
+    public function __construct()
+    {
+        $this->db = \Config\Database::connect();
+        $this->querys = $this->db->query("SELECT * FROM tblidentitas");
+        $this->rows = $this->querys->getRowArray();
+    }
+
+    public function index()
+    {
         $pager = \Config\Services::pager();
-        $db = \Config\Database::connect();
 
         $sql = "SELECT * FROM vorder";
-        $result = $db->query($sql);
+        $result = $this->db->query($sql);
         $row = $result->getResult('array');
 
         $total = count($row);
         $tampil = 5;
-        
-        $querys = $db->query("SELECT * FROM tblidentitas");
-        $rows = $querys->getRowArray();
 
         if (isset($_GET['page'])) {
             $page = $_GET['page'];
@@ -28,7 +38,7 @@ class Order extends BaseController
             $sql = "SELECT * FROM vorder ORDER BY status ASC LIMIT 0, $tampil";
         }
 
-        $result = $db->query($sql);
+        $result = $this->db->query($sql);
         $row = $result->getResult('array');
 
         $data = [
@@ -36,30 +46,25 @@ class Order extends BaseController
             'pager' => $pager,
             'perPage' => $tampil,
             'total' => $total,
-            'identity' => $rows
+            'identity' => $this->rows
         ];
-		return view('admin/order/order',$data);
+        return view('admin/order/order', $data);
     }
 
     public function find($id = null)
     {
-        $db = \Config\Database::connect();
-
         $sql = "SELECT * FROM vorder WHERE idorder=$id";
-        $result = $db->query($sql);
+        $result = $this->db->query($sql);
         $row = $result->getResult('array');
 
         $sql = "SELECT * FROM vorderdetail WHERE idorder=$id";
-        $result = $db->query($sql);
+        $result = $this->db->query($sql);
         $detail = $result->getResult('array');
-        
-        $querys = $db->query("SELECT * FROM tblidentitas");
-        $rows = $querys->getRowArray();
 
         $data = [
             'order' => $row,
             'detail' => $detail,
-            'identity' => $rows
+            'identity' => $this->rows
         ];
 
         return view('admin/order/update', $data);
@@ -85,6 +90,6 @@ class Order extends BaseController
         }
     }
 
-	//--------------------------------------------------------------------
+    //--------------------------------------------------------------------
 
 }

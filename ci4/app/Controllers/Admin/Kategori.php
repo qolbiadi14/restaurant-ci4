@@ -1,38 +1,48 @@
-<?php namespace App\Controllers\Admin;
+<?php
+
+namespace App\Controllers\Admin;
+
 use App\Controllers\BaseController;
 
 use App\Models\M_kategori;
 
 class Kategori extends BaseController
 {
+	protected $db;
+	protected $query;
+	protected $row;
+
+	public function __construct()
+	{
+		$this->db = \Config\Database::connect();
+		$this->query = $this->db->query("SELECT * FROM tblidentitas");
+		$this->row = $this->query->getRowArray();
+	}
+
 	public function index()
 	{
-        $model = new M_kategori;
-        $kategori = $model->findAll();
-        
-        $db = \Config\Database::connect();
-        $query = $db->query("SELECT * FROM tblidentitas");
-        $row = $query->getRowArray();
+		$pager = \Config\Services::pager();
+		$model = new M_kategori();
+		$kategori = $model->findAll();
+
 		$data = [
-            'kategori' => $kategori,
-            'identity' => $row
-        ];
-		return view('admin/kategori/kategori',$data);
+			'kategori' => $model->paginate(4, 'page'),
+			'pager' => $model->pager,
+			'identity' => $this->row
+		];
+		return view('admin/kategori/kategori', $data);
 	}
 
 	public function create()
 	{
-	    $db = \Config\Database::connect();
-        $query = $db->query("SELECT * FROM tblidentitas");
-        $row = $query->getRowArray();
-        
-        $data = [
-            'identity' => $row
-        ];
-		return view("/admin/kategori/insert",$data);
+
+		$data = [
+			'identity' => $this->row
+		];
+		return view("/admin/kategori/insert", $data);
 	}
 
-    public function insert()
+	public function insert()
 	{
 		$model = new M_kategori();
 		if ($model->insert($_POST) === false) {
@@ -47,17 +57,14 @@ class Kategori extends BaseController
 	public function find($id = null)
 	{
 		$model = new M_kategori();
-		$kategori = $model ->find($id);
-		
-		$db = \Config\Database::connect();
-        $query = $db->query("SELECT * FROM tblidentitas");
-        $row = $query->getRowArray();
+		$kategori = $model->find($id);
+
 		$data = [
 			'kategori' => $kategori,
-			'identity' => $row
+			'identity' => $this->row
 		];
 
-		return view("admin/kategori/update",$data);
+		return view("admin/kategori/update", $data);
 	}
 
 	public function update()
@@ -74,7 +81,7 @@ class Kategori extends BaseController
 	public function delete($id = null)
 	{
 		$model = new M_kategori();
-		$model -> delete($id);
+		$model->delete($id);
 		return redirect()->to(base_url("/admin/kategori"));
 	}
 

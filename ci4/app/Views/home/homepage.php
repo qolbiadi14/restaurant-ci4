@@ -91,7 +91,7 @@
 					<div class="tab-content" id="v-pills-tabContent">
 						<div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
 							<div class="row">
-								<?php foreach ($menu as $key => $value) : ?>
+								<?php foreach ($allmenu as $key => $value) : ?>
 									<div class="col-lg-4 col-md-6 special-grid drinks">
 										<div class="gallery-single fix">
 											<img src="<?= base_url('/upload/' . $value['gambar'] . '') ?>" class="img-fluid" alt="Image">
@@ -104,6 +104,9 @@
 										</div>
 									</div>
 								<?php endforeach ?>
+							</div>
+							<div class="row justify-content-center">
+								<?= $pager->links('page', 'pelanggan') ?>
 							</div>
 						</div>
 						<?php foreach ($kategori as $k) : ?>

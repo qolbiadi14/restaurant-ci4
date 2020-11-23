@@ -1,37 +1,44 @@
-<?php namespace App\Controllers\Admin;
+<?php
+
+namespace App\Controllers\Admin;
+
 use App\Controllers\BaseController;
 
 use App\Models\M_user;
 
 class User extends BaseController
 {
-	public function index()
-	{
+    protected $db;
+    protected $query;
+    protected $row;
+
+    public function __construct()
+    {
+        $this->db = \Config\Database::connect();
+        $this->query = $this->db->query("SELECT * FROM tblidentitas");
+        $this->row = $this->query->getRowArray();
+    }
+
+    public function index()
+    {
         $pager = \Config\Services::pager();
         $model = new M_user;
         $user = $model->findAll();
-        
-        $db = \Config\Database::connect();
-        $query = $db->query("SELECT * FROM tblidentitas");
-        $row = $query->getRowArray();
-        
-		$data = [
+
+        $data = [
             'user' => $model->paginate(3, 'page'),
             'pager' => $model->pager,
-            'identity' => $row
+            'identity' => $this->row
         ];
-		return view('admin/user/user',$data);
+        return view('admin/user/user', $data);
     }
 
     public function create()
     {
-        $db = \Config\Database::connect();
-        $query = $db->query("SELECT * FROM tblidentitas");
-        $row = $query->getRowArray();
         $data = [
-                'level' => ['Admin', 'Koki', 'Kasir'],
-                'identity' => $row
-            ];
+            'level' => ['Admin', 'Koki', 'Kasir'],
+            'identity' => $this->row
+        ];
 
         return view('/admin/user/insert', $data);
     }
@@ -40,12 +47,12 @@ class User extends BaseController
     {
         if (isset($_POST['password'])) {
             $data = [
-                    'user' => $_POST['user'],
-                    'email' => $_POST['email'],
-                    'password' => $_POST['password'],
-                    'level' => $_POST['level'],
-                    'aktif' => 1
-                ];
+                'user' => $_POST['user'],
+                'email' => $_POST['email'],
+                'password' => $_POST['password'],
+                'level' => $_POST['level'],
+                'aktif' => 1
+            ];
 
             $model = new M_user();
             $model->insert($data);
@@ -70,8 +77,8 @@ class User extends BaseController
         }
 
         $data = [
-                'aktif' => $isi
-            ];
+            'aktif' => $isi
+        ];
 
         $model->update($id, $data);
         return redirect()->to(base_url("/admin/user"));
@@ -82,16 +89,12 @@ class User extends BaseController
         $model = new M_user();
         $user = $model->find($id);
 
-        $db = \Config\Database::connect();
-        $query = $db->query("SELECT * FROM tblidentitas");
-        $row = $query->getRowArray();
-        
         $data = [
-                'user' => $user,
-                'level' => ['Admin', 'Koki', 'Kasir'],
-                'identity' => $row
+            'user' => $user,
+            'level' => ['Admin', 'Koki', 'Kasir'],
+            'identity' => $this->row
 
-            ];
+        ];
 
         return view("admin/user/update", $data);
     }
@@ -101,17 +104,17 @@ class User extends BaseController
         $id = $_POST['iduser'];
 
         $data = [
-                'user' => $_POST['user'],
-                'email' => $_POST['email'],
-                'password' => $_POST['password'],
-                'level' => $_POST['level']
-            ];
+            'user' => $_POST['user'],
+            'email' => $_POST['email'],
+            'password' => $_POST['password'],
+            'level' => $_POST['level']
+        ];
 
         $model = new M_user();
         $model->update($id, $data);
         return redirect()->to(base_url('/admin/user'));
     }
 
-	//--------------------------------------------------------------------
+    //--------------------------------------------------------------------
 
 }

@@ -1,26 +1,34 @@
 <?php
 
 namespace App\Controllers\Admin;
+
 use App\Controllers\BaseController;
 use App\Models\M_orderdetail;
 
 class Orderdetail extends BaseController
 {
-	public function index()
-	{
+    protected $db;
+    protected $query;
+    protected $row;
+
+    public function __construct()
+    {
+        $this->db = \Config\Database::connect();
+        $this->query = $this->db->query("SELECT * FROM tblidentitas");
+        $this->row = $this->query->getRowArray();
+    }
+
+    public function index()
+    {
         $pager = \Config\Services::pager();
         $model = new M_orderdetail;
-        
-        $db = \Config\Database::connect();
-        $query = $db->query("SELECT * FROM tblidentitas");
-        $row = $query->getRowArray();
-        
-		$data = [
+
+        $data = [
             'orderdetail' => $model->paginate(5, 'page'),
             'pager' => $model->pager,
-            'identity' => $row
+            'identity' => $this->row
         ];
-		return view('admin/orderdetail/orderdetail',$data);
+        return view('admin/orderdetail/orderdetail', $data);
     }
 
     public function cari()
@@ -31,12 +39,10 @@ class Orderdetail extends BaseController
 
             $sql = "SELECT * FROM vorderdetail WHERE tglorder BETWEEN '$awal' AND '$sampai' ";
 
-            $db = \Config\Database::connect();
-
-            $result = $db->query($sql);
+            $result = $this->db->query($sql);
             $row = $result->getResult('array');
-            
-            $query = $db->query("SELECT * FROM tblidentitas");
+
+            $query = $this->db->query("SELECT * FROM tblidentitas");
             $rows = $query->getRowArray();
 
             $data = [
@@ -48,6 +54,6 @@ class Orderdetail extends BaseController
         }
     }
 
-	//--------------------------------------------------------------------
+    //--------------------------------------------------------------------
 
 }

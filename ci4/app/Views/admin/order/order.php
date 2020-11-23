@@ -84,11 +84,11 @@ if (isset($_GET['page'])) {
           </table>
         </div>
         <!-- /.card-body -->
-        <div class="row justify-content-center">
-          <?= $pager->makeLinks(1, $perPage, $total, 'bootstrap') ?>
-        </div>
       </div>
       <!-- /.card -->
+      <div class="row justify-content-center">
+        <?= $pager->makeLinks(1, $perPage, $total, 'bootstrap') ?>
+      </div>
     </div>
     <!-- /.container-fluid -->
   </section>
