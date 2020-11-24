@@ -1,33 +1,34 @@
 <?php
 
 namespace App\Controllers;
+
 use App\Models\M_orderdetail;
 
 class Histori extends BaseController
 {
-	public function index($idpelanggan = null)
-	{
+    public function index($idpelanggan = null)
+    {
         $model = new M_orderdetail;
-        $histori = $model->where('idpelanggan',$idpelanggan)->findAll();
-        
+        $histori = $model->where('idpelanggan', $idpelanggan)->orderBy('tglorder', 'desc')->findAll();
+
         $db = \Config\Database::connect();
         $cart = \Config\Services::cart();
         $query = $db->query("SELECT * FROM tblidentitas");
         $row = $query->getRowArray();
         $builder = $db->table('vorderdetail');
-        $builder->where('idpelanggan',$idpelanggan);
+        $builder->where('idpelanggan', $idpelanggan);
         $count = $builder->countAllResults();
-        
-		$data = [
+
+        $data = [
             'histori' => $histori,
             'identitas' => $row,
             'cart' => $cart,
             'count' => $count
-            
+
         ];
-		return view('histori/histori',$data);
+        return view('histori/histori', $data);
     }
 
-	//--------------------------------------------------------------------
+    //--------------------------------------------------------------------
 
 }
