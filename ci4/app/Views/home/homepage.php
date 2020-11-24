@@ -118,7 +118,7 @@
 												<div class="gallery-single fix">
 													<img src="<?= base_url('/upload/' . $m['gambar'] . '') ?>" class="img-fluid" alt="Image">
 													<div class="why-text">
-														<h4><?= $value['menu'] ?></h4>
+														<h4><?= $m['menu'] ?></h4>
 														<p><a style="margin-right: 5px;" title="Tambah ke keranjang" href="<?= base_url('cart/buy/' . $m['idmenu']) ?>">Beli <i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
 															<a title="Lihat Produk" href="<?= base_url('productdetail/index/' . $m['idmenu']) ?>">Lihat Produk <i class="fa fa-eye" aria-hidden="true"></i></a></p>
 														<h5>Rp. <?= $m['harga'] ?></h5>
