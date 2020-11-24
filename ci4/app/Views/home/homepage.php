@@ -34,12 +34,12 @@
 	<!-- Start About -->
 	<div class="about-section-box">
 		<div class="container">
-			<div class="row">
-				<div class="col justify-content-end col-lg-7 col-md-7 col-sm-12 text-center">
+			<div class="row justify-content-md-center">
+				<div class="col-lg-7 col-md-7 col-sm-12 text-center">
 					<div class="inner-column">
-						<h1>Hai! Selamat Berbelanja di <span><?= $identitas['namatoko'] ?></span></h1>
-						<h4 style="color: black;">Kami mengutamakan kualitas produk </h4>
-						<p style="color: black;"><?= $identitas['deskripsitoko'] ?></p>
+						<h1 style="color: red;">Hai! Selamat Berbelanja di <span style="color: black;"><?= $identitas['namatoko'] ?></span></h1>
+						<h4 style="color: red;">Kami mengutamakan kualitas produk </h4>
+						<p style="color: red;"><?= $identitas['deskripsitoko'] ?></p>
 					</div>
 				</div>
 				<div class="col-lg-6 col-md-6 col-sm-12">
